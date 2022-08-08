@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\NewMaterialChange.cs" />
-    <Compile Include="Assets\Scripts\BAAS\PlayfabManager.cs" />
+    <Compile Include="Assets\Scripts\BAAS\LoginManager.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\LookAtTarget.cs" />
     <Compile Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Scripts\CTI_CustomWind.cs" />
     <Compile Include="Assets\Imports\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
@@ -65,7 +65,6 @@
     <Compile Include="Assets\Imports\JMO Assets\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\ObjectMoveDestroy.cs" />
     <Compile Include="Assets\Scripts\UnitInstance.cs" />
-    <Compile Include="Assets\Imports\GUI PRO Kit - Fantasy RPG\Scripts\PanelFantasyRPG.cs" />
     <Compile Include="Assets\Scripts\SpellSO.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ScaleFactorApplyToMaterial.cs" />
     <Compile Include="Assets\Scripts\PlaceholderPassive.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\ObjectMove.cs" />
     <Compile Include="Assets\Scripts\SpellInstance.cs" />
     <Compile Include="Assets\Scripts\MenuItem.cs" />
-    <Compile Include="Assets\Imports\GUI PRO Kit - Fantasy RPG\Scripts\PanelControlFantasyRPG.cs" />
     <Compile Include="Assets\Scripts\DatabaseAccessor.cs" />
     <Compile Include="Assets\Scripts\BattleStateManager.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
@@ -107,7 +105,6 @@
     <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Bark_Array_301.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\Imports\Ultimate Game Music Collection\_README.txt" />
     <None Include="Assets\Imports\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Billboard_301.shader" />
     <None Include="Assets\Imports\SpecialSkillsEffectsPack\Shader_ForEffects\Shader_Decal.shader" />
