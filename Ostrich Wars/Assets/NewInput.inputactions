@@ -1,0 +1,76 @@
+{
+    "name": "NewInput",
+    "maps": [
+        {
+            "name": "NormalEvent",
+            "id": "4b47f435-aea4-481a-a2bd-61e895cc934f",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "54679b7b-97f4-4a7b-9d46-353e8a72c952",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Deselect",
+                    "type": "Button",
+                    "id": "193d7df0-b10b-4e34-b992-c947fb13a3b0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0d7d784c-a314-423c-8847-439f29e4ec60",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6b0f716-4576-405b-aa0b-79753adc15c6",
+                    "path": "<Touchscreen>/touch0/tap",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0638974-bc1e-41d2-bcde-3376570a6cc2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "837ef8ea-1d5e-431e-941a-b3c0f43560ee",
+                    "path": "<Touchscreen>/touch0/tap",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
