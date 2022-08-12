@@ -30,10 +30,10 @@ public static class DatabaseAccessor
         }
     }
 
-    public static UnitSO LoadSpell(string name)
+    public static SpellSO LoadSpell(string name)
     {
         try {
-            return Resources.Load<UnitSO>($"ScriptableObjects/Spells/{name}");
+            return Resources.Load<SpellSO>($"ScriptableObjects/Spells/{name}");
         }
         catch
         {

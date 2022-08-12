@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5cdc761215d16458a93298b714be7d, type: 3}
   m_Name: Placeholder (on Spot
   m_EditorClassIdentifier: 
+  _invCode: HFS3PZTP
   Cost: 0
   Prefab: {fileID: 5155457864977705026, guid: b49aaa92138e3d148a4fdd1a2770c7cf, type: 3}
   SpellEffect: {fileID: 1201257571996410713, guid: fc6134672a1380b43b998b9047858c0a,

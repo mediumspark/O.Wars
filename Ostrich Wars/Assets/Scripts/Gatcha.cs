@@ -46,7 +46,7 @@ public class Gatcha : MonoBehaviour
     /// is for the unit itself
     /// </summary>
     #region Dice Rolls
-    private (UnitRarity, int) UnitDice(Profile Player)
+    private (UnitRarity, int) UnitDice(LocalProfile Player)
     {
         var UnitRarityRoll = new System.Random().Next();
         var UnitRoll = new System.Random().Next(UnitList[DecideUnitRarity(UnitRarityRoll, Player)].Count);
@@ -54,7 +54,7 @@ public class Gatcha : MonoBehaviour
         return (DecideUnitRarity(UnitRarityRoll, Player), UnitRoll);
     }
 
-    private (SpellRarity, int) SpellDice(Profile Player)
+    private (SpellRarity, int) SpellDice(LocalProfile Player)
     {
         var SpellRarityRoll = new System.Random().Next();
         var SpellRoll = new System.Random().Next(SpellList[DecideSpellRarity(SpellRarityRoll, Player)].Count);
@@ -63,7 +63,7 @@ public class Gatcha : MonoBehaviour
     }
 
     //Check Unit Rarity Roll
-    private UnitRarity DecideUnitRarity(int UnitRarityRoll, Profile Player)
+    private UnitRarity DecideUnitRarity(int UnitRarityRoll, LocalProfile Player)
     {
 
         bool isCommon = UnitRarityRoll >= (int)UnitRarity.Common;
@@ -97,7 +97,7 @@ public class Gatcha : MonoBehaviour
     }
     
     //Check Spell Rarity Roll
-    private SpellRarity DecideSpellRarity(int SpellRarityRoll, Profile Player)
+    private SpellRarity DecideSpellRarity(int SpellRarityRoll, LocalProfile Player)
     {
         bool isCommon = SpellRarityRoll >= (int)UnitRarity.Common;
         bool isUncommon = !isCommon && SpellRarityRoll >= (int)UnitRarity.Rare;
@@ -136,7 +136,7 @@ public class Gatcha : MonoBehaviour
 
     #endregion
 
-    public void SendToInventory(Profile Player)
+    public void SendToInventory(LocalProfile Player)
     {
         var Uroll = UnitDice(Player);
         var Sroll = SpellDice(Player);

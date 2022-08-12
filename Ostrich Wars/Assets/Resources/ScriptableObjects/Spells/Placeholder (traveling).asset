@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5cdc761215d16458a93298b714be7d, type: 3}
   m_Name: Placeholder (traveling)
   m_EditorClassIdentifier: 
+  _invCode: KBITKFM6
   Cost: 0
   Prefab: {fileID: 1423018234035191118, guid: 80009ae457c78c146874290fd5c9c982, type: 3}
   SpellEffect: {fileID: 1529655809297338366, guid: faa41c45b7e83a74bbd8a5b425aaa7e0,

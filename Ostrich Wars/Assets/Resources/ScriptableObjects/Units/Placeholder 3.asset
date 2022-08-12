@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229fd740fdbed5942be2bf00607ffce2, type: 3}
   m_Name: Placeholder 3
   m_EditorClassIdentifier: 
+  _invCode: QCZBXY2X
   UnitBaseStats:
     Health: 15
     Attack: 3

@@ -11,7 +11,7 @@ public struct UnitStats
 }
 
 [CreateAssetMenu(fileName = "New Unit", menuName = "Unit")]
-public class UnitSO : ScriptableObject
+public class UnitSO : InventoryObject
 {
     public UnitStats UnitBaseStats;
 
