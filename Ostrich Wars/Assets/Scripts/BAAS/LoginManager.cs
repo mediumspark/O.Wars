@@ -19,7 +19,13 @@ public class LoginManager : MonoBehaviour
     private Transform OutOfBattleScene, LoginScene;
 
     public delegate void LoginDelegate();
-    public static LoginDelegate OnLogin; 
+    public static LoginDelegate OnLogin;
+
+    public static string SessionTicket;
+    public static string EntityID;
+
+    [SerializeField]
+    bool isServer; 
 
     public void RegisterButton()
     {
@@ -67,6 +73,8 @@ public class LoginManager : MonoBehaviour
             SavedUSRN = emailIn.text;
             SavedPS = passwordIn.text;
         }
+        SessionTicket = result.SessionTicket;
+        EntityID = result.EntityToken.Entity.Id;
         Debug.Log("Registered and Logged in");
     }
 
@@ -98,6 +106,9 @@ public class LoginManager : MonoBehaviour
             SavedUSRN = emailIn.text;
             SavedPS = passwordIn.text;
         }
+
+        SessionTicket = result.SessionTicket;
+        EntityID = result.EntityToken.Entity.Id;
 
         Player.SetProfile();
 

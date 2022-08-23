@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DevAccountEmail: mediumspark@gmail.com
   DevAccountToken: 65c1uap4xtcp7d4wmj5m17wno4djrgcig9iqr3b85rdj4p3zo83rgboom4fuyufyqmzdibieugdof7ws47am1jpctupf9wtg8myixdajrsku4p7rxgpcgrwqxfkhahxue1rr93n5ryx1xaatbzisfmqae3ifxb949e9cjcefpn8e9gu6utz71zkkhat97yz9hgqzbpgn
-  SelectedStudio: 
+  SelectedStudio: Kind Spark
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 1
-  curSubMenuIdx: 2
+  curMainMenuIdx: 0
+  curSubMenuIdx: 0

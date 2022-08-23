@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Placeholder 1
   m_EditorClassIdentifier: 
   _invCode: NKKON36F
+  Portrait: {fileID: 21300000, guid: d29225771a2a1f947b86acf50d87509d, type: 3}
   UnitBaseStats:
     Health: 20
     Attack: 2
     Defence: 3
-    SpellAttackBonus: 2
+    SpellAttack: 0
     SpellDefence: 5
     Speed: 5
     ManaPips: 5

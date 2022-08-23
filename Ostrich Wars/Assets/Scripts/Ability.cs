@@ -17,7 +17,7 @@ public abstract class Ability : MonoBehaviour
                 Finished = PA.isStopped;
             }
 
-            BattleStateManager.ActiveAnimation = !Finished;
+            BattleStateManager.instance.ActiveAnimation = !Finished;
 
             if (Finished)
             {

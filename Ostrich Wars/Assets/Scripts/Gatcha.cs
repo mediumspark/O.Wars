@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayFab;
+using PlayFab.ClientModels;
+using System; 
 
 public class Gatcha : MonoBehaviour
-{    
+{
+    [SerializeField]
+    int Unitrolls, SpellRolls; 
+    
+
     private Dictionary<UnitRarity, List<UnitSO>> UnitList = new Dictionary<UnitRarity, List<UnitSO>>();
     private Dictionary<SpellRarity, List<SpellSO>> SpellList = new Dictionary<SpellRarity, List<SpellSO>>();
 
@@ -143,5 +150,78 @@ public class Gatcha : MonoBehaviour
 
         Player.UnitInventory.Add(UnitList[Uroll.Item1][Uroll.Item2]); 
         Player.SpellsInventory.Add(SpellList[Sroll.Item1][Sroll.Item2]); 
+    }
+
+
+    public void RollForUnits(int rolls)
+    {
+        Consume(rolls, "Gatcha Ticket");
+    }
+
+    public void RollsForSpells(int rolls)
+    {
+        Consume(rolls, "Card Ticket");
+    }
+
+    public void Consume(int rolls, string ItemID)
+    {
+        for (int index = 0; index < rolls; index++) {
+
+            var request = new UnlockContainerItemRequest
+            {
+                ContainerItemId = ItemID
+            };
+
+            PlayFabClientAPI.UnlockContainerItem(request, ConsumeResult, OnError);
+
+            void ConsumeResult(UnlockContainerItemResult result)
+            {
+                GameManager.instance.Player.SaveProfile();
+                Debug.Log("Item result");
+            }
+        }
+    }
+
+
+    private void OnEnable()
+    {
+
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), CollectRollsFromInventory, OnError);
+
+        void CollectRollsFromInventory(GetUserInventoryResult result)
+        {
+            foreach (ItemInstance item in result.Inventory)
+            {
+                switch (item.ItemId)
+                {
+                    case "Card Ticket":
+                        SpellRolls += Convert.ToInt32(item.RemainingUses); 
+                        break; 
+                
+                    case "Premium Card Ticket":
+                        SpellRolls += Convert.ToInt32(item.RemainingUses) * 10; 
+                        break; 
+                
+                    case "Gatcha Ticket":
+                        Unitrolls += Convert.ToInt32(item.RemainingUses);
+                        break; 
+                
+                    case "Premium Gatcha Ticket":
+                        Unitrolls += Convert.ToInt32(item.RemainingUses) * 10;
+                        break; 
+                }
+            }
+        }
+
+    }
+
+    void OnError(PlayFabError error)
+    {
+        Debug.LogWarning(error.GenerateErrorReport());
+    }
+
+    private void OnDisable()
+    {
+        Unitrolls = 0; SpellRolls = 0; 
     }
 }

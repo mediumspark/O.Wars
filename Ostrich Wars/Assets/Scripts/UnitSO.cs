@@ -5,9 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public struct UnitStats
 {
-    public int Health, Attack, Defence, SpellAttackBonus, SpellDefence, Speed;
+    public int Health, Attack, Defence, SpellAttack, SpellDefence, Speed;
     [Range(0, 5)]
-    public int ManaPips; 
+    public int ManaPips;
+    public StatusEffects _currenStatusEffect;
+
 }
 
 [CreateAssetMenu(fileName = "New Unit", menuName = "Unit")]

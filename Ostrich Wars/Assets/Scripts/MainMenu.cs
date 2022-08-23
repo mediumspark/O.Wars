@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public CinemachineFreeLook Cam;
+    public static MainMenu instance; 
+    public CinemachineVirtualCamera Cam;
     public MenuItem SelectedMenuItem;
     NewInput inputActions;
 
     private void Awake()
     {
+        instance = this; 
         inputActions = new NewInput();
 
         inputActions.NormalEvent.Select.performed += ctx =>
         {
             RaycastHit hit;
-            Ray publicWorldPos = GameManager.CachedCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            //Returns true if using mouse
+            bool MouseOrTap = Mouse.current != null;
+            var InputValue = MouseOrTap ? Mouse.current.position.ReadValue() : Touchscreen.current.position.ReadValue();
+            Ray publicWorldPos = GameManager.CachedCamera.ScreenPointToRay(InputValue);
             if (Physics.Raycast(publicWorldPos, out hit))
             {
                 Transform hitboi = hit.transform;
@@ -30,6 +35,7 @@ public class MainMenu : MonoBehaviour
                 UnfocusCam();
             }
         };
+
 
         inputActions.NormalEvent.Deselect.performed += ctx => UnfocusCam(); 
     }

@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PlayFab.AdminModels;
-using PlayFab;
-using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance; 
+
     public static List<string> InventoryCodes = new List<string>(); 
 
     public LocalProfile Player, Other;
@@ -19,13 +18,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this; 
         CachedCamera = _CachedCamera;
         HoverParticle = _hoverParticle;
     }
 
     public void OnBeginBattle()
     {
-        BattleStateManager.SetBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
+        BattleStateManager.instance.SetBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
     }
 
 }

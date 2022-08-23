@@ -3,23 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
+
 
 public class BattleStateManager : MonoBehaviour
 {
+    public static BattleStateManager instance; 
+
     ///Player Lists from their selected Inventories
-    private static List<UnitSO> _playerUnit, _enemyUnits;
+    private List<UnitSO> _playerUnit, _enemyUnits;
     //Units Currently on the field
     private List<UnitInstance> _activePlayerUnits = new List<UnitInstance>();
     private List<UnitInstance> _activeEnemyUnits = new List<UnitInstance>();
+    public List<UnitInstance> EnemiesActive => _activeEnemyUnits;
+    public List<UnitInstance> AllUnits  { 
+        get {
+            List<UnitInstance> UIL = new List<UnitInstance>();
+
+            UIL.AddRange(_activePlayerUnits);
+            UIL.AddRange(_activeEnemyUnits);
+            return UIL; 
+        }
+    }
 
     //Currently Acting Unit
-    private static UnitInstance _currentActingUnit;
-    public static UnitInstance CurrentUnit => _currentActingUnit;
-    private static UnitAnimation _currentUnitAnimations => _currentActingUnit.UIA; 
+    private UnitInstance _currentActingUnit;
+    public  UnitInstance CurrentUnit => _currentActingUnit;
+    private UnitAnimation _currentUnitAnimations => _currentActingUnit.UIA; 
 
     //TurnOrder of the Currently Acting Units
     private UnitInstance[] _turnOrder;
+    public List<UnitInstance> TurnOrder => _turnOrder.ToList(); 
 
     [SerializeField]
     private Transform _playerBattleSpace, _enemyBattleSpace;
@@ -33,24 +47,26 @@ public class BattleStateManager : MonoBehaviour
     /// <summary>
     /// ActionQueued is marked when the player selects an option  
     /// </summary>
-    public static bool ActionQueued = false; 
+    public bool ActionQueued = false; 
 
     /// <summary>
     /// Target of Unit Strike or Spell
     /// </summary>
-    private static UnitInstance _targetCache;
+    private UnitInstance _targetCache;
 
     private NewInput inputActions;
 
     /// <summary>
     /// Decks
     /// </summary>
-    private static List<SpellSO> _playerDeck, _enemyDeck;
+    private List<SpellSO> _playerDeck, _enemyDeck;
     [SerializeField]
-    private List<SpellSO> _playerDeckInstance, _enemyDeckInstance; 
+    private List<SpellSO> _playerDeckInstance, _enemyDeckInstance;
 
     private void Awake()
     {
+        instance = this; 
+
         inputActions = new NewInput();
 
         inputActions.NormalEvent.Select.performed += ctx =>
@@ -67,7 +83,7 @@ public class BattleStateManager : MonoBehaviour
         };
     }
 
-    public static bool ActiveAnimation = false;
+    public bool ActiveAnimation = false;
 
     private void OnEnable()
     {
@@ -79,7 +95,7 @@ public class BattleStateManager : MonoBehaviour
         inputActions.Disable(); 
     }
 
-    public static UnitInstance Target 
+    public UnitInstance Target 
     {
         get => _targetCache;
         set 
@@ -93,7 +109,7 @@ public class BattleStateManager : MonoBehaviour
     }
 
 
-    public static void SetBattleComponents(List<UnitSO> PlayerUnit, List<UnitSO> EnemyUnits, List<SpellSO> PlayerDeck, List<SpellSO> EnemyDeck)
+    public void SetBattleComponents(List<UnitSO> PlayerUnit, List<UnitSO> EnemyUnits, List<SpellSO> PlayerDeck, List<SpellSO> EnemyDeck)
     {
         _playerDeck = PlayerDeck; 
         _playerUnit = PlayerUnit;
@@ -126,7 +142,7 @@ public class BattleStateManager : MonoBehaviour
             if (!_currentActingUnit.PlayerOwned)
             {
                 Debug.Log("EnemyTurn");
-                _aIPlayer.ExecuteDescision(_currentActingUnit, _activeEnemyUnits.Concat(_activePlayerUnits).ToList());
+                _aIPlayer?.ExecuteDescision(_currentActingUnit, _activeEnemyUnits.Concat(_activePlayerUnits).ToList());
             }
             else
             {
@@ -146,6 +162,8 @@ public class BattleStateManager : MonoBehaviour
                 DeckManager.DrawCard(true, _playerDeckInstance);
             }
         });
+
+
         OnTurnEnd.AddListener(() =>
         {
 
@@ -166,7 +184,13 @@ public class BattleStateManager : MonoBehaviour
             }
 
         });
+
+        OnTurnEnd.AddListener(() =>
+        {
+
+        });
         AddActionRecurringlListeners();
+
         #endregion
 
         OnTurnStart.Invoke(); 
@@ -219,7 +243,7 @@ public class BattleStateManager : MonoBehaviour
     /// Called When a unit selections an action and then completes that action
     /// </summary>
     public delegate void OnActionTakenDelegate(UnitInstance target);
-    public static OnActionTakenDelegate OnActionTaken; 
+    public OnActionTakenDelegate OnActionTaken; 
 
     /// <summary>
     /// Called when that action is completed but before the next unit has been chosen
@@ -238,7 +262,7 @@ public class BattleStateManager : MonoBehaviour
     /// Called when a unit casts a spell 
     /// </summary>
     [HideInInspector]
-    public static UnityEvent SpellCast = new UnityEvent();
+    public UnityEvent SpellCast = new UnityEvent();
 
     /// <summary>
     /// Called when unit uses AttackCommand
@@ -311,6 +335,9 @@ public class BattleStateManager : MonoBehaviour
         OnTurnStart.Invoke();
     }
 
+    //ForTestingPurposes
+    public void NextTurnButton() => NextTurnInCycle(); 
+
     public void EndTurn()
     {
         ActionQueued = false;
@@ -326,18 +353,21 @@ public class BattleStateManager : MonoBehaviour
         OnAttack.AddListener(() =>
         {
             _currentUnitAnimations.AttackTrigger();
+
         });
 
         OnPass.AddListener(() =>
         {
             //This shouldn't work
             _currentActingUnit.CurrStats.ManaPips++;
+
             OnTurnEnd.Invoke();
         });
 
         SpellCast.AddListener(() =>
         {
-            _currentUnitAnimations.CastTrigger(); 
+            _currentUnitAnimations.CastTrigger();
+
         });
 
     }
@@ -349,7 +379,7 @@ public class BattleStateManager : MonoBehaviour
     }
 
     //Used Externally so clicking a new spell clears all other spells from the ActionTaken delegate
-    public static void ClearActionQueue()
+    public void ClearActionQueue()
     {
         OnActionTaken = null; 
     }
@@ -362,9 +392,9 @@ public class BattleStateManager : MonoBehaviour
     }
 
     //Used Externally so that the spell animation can play out
-    public static void EndTurnAfterSpellCast()
+    public void EndTurnAfterSpellCast()
     {
-        FindObjectOfType<BattleStateManager>().OnTurnEnd.Invoke(); 
+        OnTurnEnd.Invoke(); 
     }
 
     /// <summary>
@@ -382,7 +412,7 @@ public class BattleStateManager : MonoBehaviour
         if (Target != null)
         {
             ActiveAnimation = true;
-            OnActionTaken.Invoke(Target);
+            BattleToServerMessenger.instance.SubmitActionRequestServerRpc(); 
         }
         else
             Debug.Log("Select Target");
@@ -405,11 +435,11 @@ public class BattleStateManager : MonoBehaviour
             _activeEnemyUnits.Remove(Unit); 
         }
 
-        _turnOrder.ToList().Remove(Unit); 
-        
+        _turnOrder.ToList().Remove(Unit);
+
 
         if (Unit == _currentActingUnit)
-            OnTurnEnd.Invoke(); 
+            OnTurnEnd.Invoke();
 
         Destroy(Unit);
 

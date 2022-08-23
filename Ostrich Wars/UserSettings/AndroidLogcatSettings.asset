@@ -1,13 +1,50 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "WGVG6LAAR8BMUKJF",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "WGVG6LAAR8BMUKJF",
+        "name": "com.KindSpark.OstrichWars",
+        "processId": 26264,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.KindSpark.OstrichWars",
+            "processId": 17511,
+            "exited": true
+        },
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.KindSpark.OstrichWars",
+            "processId": 21043,
+            "exited": true
+        },
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.KindSpark.OstrichWars",
+            "processId": 22271,
+            "exited": true
+        },
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.KindSpark.OstrichWars",
+            "processId": 24499,
+            "exited": true
+        },
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.android.settings",
+            "processId": 25605,
+            "exited": false
+        },
+        {
+            "deviceId": "WGVG6LAAR8BMUKJF",
+            "name": "com.KindSpark.OstrichWars",
+            "processId": 26264,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,13 +78,38 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "",
-    "m_FilterIsRegularExpression": false,
-    "m_SymbolPaths": []
+    "m_FilterOptions": {
+        "m_Filter": "",
+        "m_UseRegularExpressions": false,
+        "m_MatchCase": false
+    },
+    "m_SymbolPaths": [],
+    "m_CaptureVideoSettings": {
+        "TimeLimitEnabled": false,
+        "TimeLimit": 180,
+        "VideoSizeEnabled": false,
+        "VideoSizeX": 1280,
+        "VideoSizeY": 720,
+        "BitRateEnabled": false,
+        "BitRateK": 20000,
+        "DisplayIdEnabled": false,
+        "DisplayId": ""
+    }
 }

@@ -29,7 +29,7 @@ public class SpellInstance : MonoBehaviour, IPointerClickHandler
 
         if(A is TravelCast)
         {
-            A.transform.position = BattleStateManager.CurrentUnit.transform.position; 
+            A.transform.position = BattleStateManager.instance.CurrentUnit.transform.position; 
         }
 
         ToDiscard(); 
@@ -46,17 +46,17 @@ public class SpellInstance : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        BattleStateManager.ClearActionQueue();
+        BattleStateManager.instance.ClearActionQueue();
 
-        BattleStateManager.ActionQueued = true;
+        BattleStateManager.instance.ActionQueued = true;
 
-        BattleStateManager.SpellCast.AddListener(() => Cast(BattleStateManager.Target));
-        BattleStateManager.OnActionTaken += ctx => BattleStateManager.SpellCast.Invoke(); 
+        BattleStateManager.instance.SpellCast.AddListener(() => Cast(BattleStateManager.instance.Target));
+        BattleStateManager.instance.OnActionTaken += ctx => BattleStateManager.instance.SpellCast.Invoke(); 
 
         Debug.Log("Spell Selected");
 
-        if (BattleStateManager.Target != null)
-            BattleStateManager.OnActionTaken.Invoke(BattleStateManager.Target);
+        if (BattleStateManager.instance.Target != null)
+            BattleStateManager.instance.OnActionTaken.Invoke(BattleStateManager.instance.Target);
     }
     //Battle Manager has "End Turn After Spell Cast" Which is already implemented in order
     //to end the turn after the spell effect is finished not after the spell is selected

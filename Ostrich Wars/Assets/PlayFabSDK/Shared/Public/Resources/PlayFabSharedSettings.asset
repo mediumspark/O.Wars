@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: CB67B
   DeveloperSecretKey: N8Z1Z1EOIC66GQRZH5D5UGTPUXF34JGGMM5JKN9SO1IEWJ9GRY
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   DisableDeviceInfo: 0
   DisableFocusTimeCollection: 0
   RequestTimeout: 2000

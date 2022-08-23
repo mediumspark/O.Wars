@@ -10,14 +10,7 @@ public class LocalProfile : MonoBehaviour
 {
     public List<UnitSO> UnitInventory = new List<UnitSO>();
     public Dictionary<string, List<UnitSO>> SavedTeams = new Dictionary<string, List<UnitSO>>(); 
-    private List<UnitSO> currentTeam = new List<UnitSO>();
-    public List<UnitSO> CurrentTeam
-    {
-        get => currentTeam; set
-        {
-            if(currentTeam.Count)
-        }
-    }
+    public List<UnitSO> CurrentTeam = new List<UnitSO>();
 
     public List<SpellSO> SpellsInventory = new List<SpellSO>();
     public List<SpellSO> CurrenDeck = new List<SpellSO>();
@@ -28,14 +21,144 @@ public class LocalProfile : MonoBehaviour
     public void SetProfile()
     {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataRecieved, OnError);
+    }   
+
+    private void OnDataRecieved(GetUserDataResult result)
+    {
+        bool Datacheck = 
+            result.Data.ContainsKey("SavedTeams") &&
+            result.Data.ContainsKey("CurrentTeam") &&
+            result.Data.ContainsKey("CurrenDeck") &&
+            result.Data.ContainsKey("UnitPity") &&
+            result.Data.ContainsKey("SpellPity");
+
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), OnInvRecieved, OnError); 
+
+
+        if (result.Data != null && Datacheck)
+        {
+            CurrentTeam = TeamEncoding.InventoryDecoder<UnitSO>(result.Data["CurrentTeam"].Value);
+            CurrenDeck = TeamEncoding.InventoryDecoder<SpellSO>(result.Data["CurrenDeck"].Value);
+            UnitPity = Convert.ToInt32(result.Data["UnitPity"].Value);
+            SpellPity = Convert.ToInt32(result.Data["SpellPity"].Value);
+            SavedTeams = TeamEncoding.DecodeSavedTeams(result.Data["SavedTeams"].Value);
+        }
+
     }
 
-    public string InventoryEncoder<T>(List<T> Inventory) where T : InventoryObject
+    private void OnInvRecieved(GetUserInventoryResult obj)
+    {
+        UnitInventory = new List<UnitSO>();
+        SpellsInventory = new List<SpellSO>(); 
+
+        foreach(var inventoryobject in obj.Inventory)
+        {
+            if(inventoryobject.ItemClass == "UnitSO")
+            {
+                UnitInventory.Add(DatabaseAccessor.LoadUnit(inventoryobject.DisplayName));
+            }
+            else if(inventoryobject.ItemClass == "SpellSO")
+            {
+                SpellsInventory.Add(DatabaseAccessor.LoadSpell(inventoryobject.DisplayName));
+            }
+        }
+    }
+
+    public void SaveProfile()
+    {
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"CurrentTeam", TeamEncoding.InventoryEncoder(CurrentTeam)},
+                {"CurrenDeck", TeamEncoding.InventoryEncoder(CurrenDeck)},
+                {"UnitPity", UnitPity.ToString()},
+                {"SpellPity", SpellPity.ToString()},
+                {"SavedTeams", TeamEncoding.EncodeSavedTeams(SavedTeams)}
+
+            }
+        };
+
+        PlayFabClientAPI.UpdateUserData(request, OnDataSaved, OnError);
+
+    }
+
+    private void OnError(PlayFabError obj)
+    {
+        Debug.Log(obj.ErrorMessage);
+    }
+
+    private void OnDataSaved(UpdateUserDataResult obj)
+    {
+        Debug.Log("Deck Saved");
+    }  
+
+
+    public void AddToDeck(SpellSO newSpell)
+    {
+        if(CurrenDeck.Count < 20)
+        {
+            CurrenDeck.Add(newSpell);
+        }
+        else
+        {
+            Debug.Log("DeckLimit Reached");
+        }
+    }
+
+    public void RemoveFromDeck(SpellSO spell)
+    {
+        CurrenDeck.Remove(spell); 
+    }
+    
+
+    public void AddToTeam(UnitSO newUnit, int Position)
+    {
+        if (Position == 1 || Position == 2 || Position == 0)
+        {
+            CurrentTeam.Insert(Position, newUnit);
+        }
+        else
+        {
+            Debug.Log("Not valid team position");
+        }
+    }
+
+    public void RemoveFromTeam(int Position)
+    {
+        try
+        {
+            if ((Position == 1 || Position == 2 || Position == 0) && CurrentTeam[Position] != null)
+            {
+                CurrentTeam.RemoveAt(Position);
+            }
+            else
+            {
+                Debug.Log("Not a valid team Position");
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("Warning: Issue at removal, likely index issue");
+        }
+
+    }
+
+    public void SaveTeam(string name)
+    {
+        SavedTeams.Add(name, CurrentTeam);
+    }
+
+}
+
+public static class TeamEncoding
+{
+    public static string InventoryEncoder<T>(List<T> Inventory) where T : InventoryObject
     {
         string InventoryCode = "";
         char InventoryDelimiter = ';';
 
-        foreach(InventoryObject thing in Inventory)
+        foreach (InventoryObject thing in Inventory)
         {
             InventoryCode += thing.InvCode + InventoryDelimiter;
         }
@@ -43,25 +166,25 @@ public class LocalProfile : MonoBehaviour
         return InventoryCode;
     }
 
-    private string EncodeSavedTeams(Dictionary<string, List<UnitSO>> Teams)
+    public static string EncodeSavedTeams(Dictionary<string, List<UnitSO>> Teams)
     {
         string fullsavedteams = "";
         char delim = '|';
-        foreach(string name in Teams.Keys)
+        foreach (string name in Teams.Keys)
         {
             fullsavedteams += delim + name + delim;
 
             fullsavedteams += InventoryEncoder(Teams[name]);
         }
-        return fullsavedteams; 
+        return fullsavedteams;
     }
 
-    private Dictionary<string, List<UnitSO>> DecodeSavedTeams(string Teams)
+    public static Dictionary<string, List<UnitSO>> DecodeSavedTeams(string Teams)
     {
-        string tmpNameInc ="";
+        string tmpNameInc = "";
         string tmpName = "";
-        string tmpTeam =""; 
-        bool nameStart = false; 
+        string tmpTeam = "";
+        bool nameStart = false;
         char NameDelim = '|';
         char InvenDeliter = ';';
 
@@ -101,10 +224,10 @@ public class LocalProfile : MonoBehaviour
             Debug.LogWarning("Issue loading saved teams");
         }
 
-        return TeamList; 
+        return TeamList;
     }
 
-    public List<T> InventoryDecoder<T>(string Code) where T : InventoryObject
+    public static List<T> InventoryDecoder<T>(string Code) where T : InventoryObject
     {
         List<T> Inventory = new List<T>();
         List<T> AllObjects = Resources.LoadAll<T>("ScriptableObjects").ToList();
@@ -134,76 +257,4 @@ public class LocalProfile : MonoBehaviour
         }
         return Inventory;
     }
-
-    private void OnDataRecieved(GetUserDataResult obj)
-    {
-        bool Datacheck = 
-            obj.Data.ContainsKey("SavedTeams") &&
-            obj.Data.ContainsKey("CurrentTeam") &&
-            obj.Data.ContainsKey("CurrenDeck") &&
-            obj.Data.ContainsKey("UnitPity") &&
-            obj.Data.ContainsKey("SpellPity");
-
-        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), OnInvRecieved, OnError); 
-
-
-        if (obj.Data != null && Datacheck)
-        {
-            CurrentTeam = InventoryDecoder<UnitSO>(obj.Data["CurrentTeam"].Value);
-            CurrenDeck = InventoryDecoder<SpellSO>(obj.Data["CurrenDeck"].Value);
-            UnitPity = Convert.ToInt32(obj.Data["UnitPity"].Value);
-            SpellPity = Convert.ToInt32(obj.Data["SpellPity"].Value);
-            SavedTeams = DecodeSavedTeams(obj.Data["SavedTeams"].Value);
-        }
-
-    }
-
-    private void OnInvRecieved(GetUserInventoryResult obj)
-    {
-        UnitInventory = new List<UnitSO>();
-        SpellsInventory = new List<SpellSO>(); 
-
-        foreach(var inventoryobject in obj.Inventory)
-        {
-            if(inventoryobject.ItemClass == "UnitSO")
-            {
-                UnitInventory.Add(DatabaseAccessor.LoadUnit(inventoryobject.DisplayName));
-            }
-            else if(inventoryobject.ItemClass == "SpellSO")
-            {
-                SpellsInventory.Add(DatabaseAccessor.LoadSpell(inventoryobject.DisplayName));
-            }
-        }
-    }
-
-    public void SaveProfile()
-    {
-        var request = new UpdateUserDataRequest
-        {
-            Data = new Dictionary<string, string>
-            {
-                {"CurrentTeam", InventoryEncoder(CurrentTeam)},
-                {"CurrenDeck", InventoryEncoder(CurrenDeck)},
-                {"UnitPity", UnitPity.ToString()},
-                {"SpellPity", SpellPity.ToString()},
-                {"SavedTeams", EncodeSavedTeams(SavedTeams)}
-
-            }
-        };
-
-        PlayFabClientAPI.UpdateUserData(request, OnDataSaved, OnError);
-
-    }
-
-    private void OnError(PlayFabError obj)
-    {
-        Debug.Log(obj.ErrorMessage);
-    }
-
-    private void OnDataSaved(UpdateUserDataResult obj)
-    {
-        Debug.Log("Deck Saved");
-    }  
-    
-
 }

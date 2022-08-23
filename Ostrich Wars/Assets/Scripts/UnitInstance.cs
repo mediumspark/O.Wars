@@ -25,14 +25,13 @@ public class UnitInstance : MonoBehaviour, IGameplayInteractable
 
     public bool PlayerOwned;
 
-    private StatusEffects _currenStatusEffect = StatusEffects.normal;
     public StatusEffects CurrentStatus
     {
-        get => _currenStatusEffect;
+        get => CurrStats._currenStatusEffect;
         set
         {
-            _currenStatusEffect = value;
-            StatusPing(_currenStatusEffect); 
+            CurrStats._currenStatusEffect = value;
+            StatusPing(CurrStats._currenStatusEffect); 
         }
     }
 
@@ -42,18 +41,18 @@ public class UnitInstance : MonoBehaviour, IGameplayInteractable
     
     public void StatusPing(StatusEffects Effect)
     {
-        if(_currenStatusEffect == StatusEffects.normal || Effect == StatusEffects.normal)
+        if(CurrStats._currenStatusEffect == StatusEffects.normal || Effect == StatusEffects.normal)
         {
-            _currenStatusEffect = Effect; 
+            CurrStats._currenStatusEffect = Effect; 
         }//Cannot convert one status to another status i.e. Blessed Units cannot be Feared or heavy
         //However Units can be converted back to Normal 
 
         //Status effects, switch statement
-        switch (_currenStatusEffect)
+        switch (CurrStats._currenStatusEffect)
         {
             case StatusEffects.Blessed:
                 CurrStats.SpellDefence *=2;
-                CurrStats.SpellAttackBonus *= 2; 
+                CurrStats.SpellAttack *= 2; 
                 break;
             case StatusEffects.Burned:
                 CurrStats.Attack /= 2; 
@@ -88,7 +87,7 @@ public class UnitInstance : MonoBehaviour, IGameplayInteractable
         Debug.Log($"{name} clicked");
 
         //TODO: Add Valid Target Check
-        BattleStateManager.Target = this; 
+        BattleStateManager.instance.Target = this; 
     }
 
     private void OnMouseExit()

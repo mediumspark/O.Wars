@@ -18,7 +18,7 @@ public class ActiveAbility : Ability
         //Does real cast when hit
         Debug.Log("hit");
         //TODO: Wait until Animation is finished
-        BattleStateManager.EndTurnAfterSpellCast();
+        BattleStateManager.instance.EndTurnAfterSpellCast();
         Destroy(gameObject);
     }
 

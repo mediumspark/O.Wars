@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Placeholder (on Spot
   m_EditorClassIdentifier: 
   _invCode: HFS3PZTP
+  Portrait: {fileID: 21300000, guid: 4bd0d2050def02142b207f32a9347249, type: 3}
   Cost: 0
   Prefab: {fileID: 5155457864977705026, guid: b49aaa92138e3d148a4fdd1a2770c7cf, type: 3}
   SpellEffect: {fileID: 1201257571996410713, guid: fc6134672a1380b43b998b9047858c0a,

@@ -10,26 +10,41 @@ using System.Linq;
 
 public class ShopItem : MonoBehaviour
 {
-    public void Buy(int cost, string CurrencyTag)
+    private int _cost;
+    private string _tag, _id; 
+
+    public void Buy(int cost, string CurrencyTag, string id)
+    {
+        _cost = cost; _tag = CurrencyTag; _id = id; 
+
+        var request = new PurchaseItemRequest
+        {
+            VirtualCurrency = CurrencyTag,
+            ItemId = id,
+            Price = cost
+        };
+
+        PlayFabClientAPI.PurchaseItem(request, OnPurchaseSuccess, OnError);
+        GameManager.instance.Player.SaveProfile(); 
+    }
+
+    void OnPurchaseSuccess(PurchaseItemResult result)
     {
         var request = new SubtractUserVirtualCurrencyRequest
         {
-            VirtualCurrency = CurrencyTag,
-            Amount = cost
+            VirtualCurrency = _tag, 
+            Amount = _cost
         };
 
-        PlayFabClientAPI.SubtractUserVirtualCurrency(request, OnPurchaseSuccess, OnError);
-    }
+        ProfileToUI.instance.PC -= Convert.ToInt32(result.Items[0].UnitPrice); 
 
-    void OnPurchaseSuccess(ModifyUserVirtualCurrencyResult result)
-    {
-        ProfileToUI.PC = result.Balance;
         Debug.Log("Purchase Successful");
+
     }
 
     void OnError(PlayFabError error)
     {
-        Debug.Log(error.ErrorMessage);
+        Debug.Log(error.GenerateErrorReport());
     }
 }
 
@@ -114,7 +129,7 @@ public class StoreUI : MonoBehaviour
         GameObject PurchaseButton = First.transform.GetChild(3).gameObject;
         PurchaseButton.GetComponent<Button>().onClick.AddListener(() => 
         {
-            SI.Buy(cost, currency);
+            SI.Buy(cost, currency, item.ItemId);
         });
 
         TextMeshProUGUI BuyText = PurchaseButton.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();

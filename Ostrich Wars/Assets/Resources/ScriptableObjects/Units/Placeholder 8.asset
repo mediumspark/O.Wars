@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Placeholder 8
   m_EditorClassIdentifier: 
   _invCode: V5D6IX9E
+  Portrait: {fileID: 21300000, guid: d29225771a2a1f947b86acf50d87509d, type: 3}
   UnitBaseStats:
     Health: 15
     Attack: 3
     Defence: 1
-    SpellAttackBonus: 1
+    SpellAttack: 0
     SpellDefence: 0
     Speed: 2
     ManaPips: 0
