@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\Bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_2020_3_37;UNITY_2020_3;UNITY_2020;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;PLATFORM_EXTENDS_VULKAN_DEVICE;PLATFORM_HAS_MULTIPLE_SWAPCHAINS;UNITY_ANDROID_SUPPORTS_SHADOWFILES;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API;MIRROR;MIRROR_17_0_OR_NEWER;MIRROR_18_0_OR_NEWER;MIRROR_24_0_OR_NEWER;MIRROR_26_0_OR_NEWER;MIRROR_27_0_OR_NEWER;MIRROR_28_0_OR_NEWER;MIRROR_29_0_OR_NEWER;MIRROR_30_0_OR_NEWER;MIRROR_30_5_2_OR_NEWER;MIRROR_32_1_2_OR_NEWER;MIRROR_32_1_4_OR_NEWER;MIRROR_35_0_OR_NEWER;MIRROR_35_1_OR_NEWER;MIRROR_37_0_OR_NEWER;MIRROR_38_0_OR_NEWER;MIRROR_39_0_OR_NEWER;MIRROR_40_0_OR_NEWER;MIRROR_41_0_OR_NEWER;MIRROR_42_0_OR_NEWER;MIRROR_43_0_OR_NEWER;MIRROR_44_0_OR_NEWER;MIRROR_46_0_OR_NEWER;MIRROR_47_0_OR_NEWER;MIRROR_53_0_OR_NEWER;MIRROR_55_0_OR_NEWER;MIRROR_57_0_OR_NEWER;MIRROR_58_0_OR_NEWER;MIRROR_65_0_OR_NEWER;MIRROR_66_0_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2020_3_37;UNITY_2020_3;UNITY_2020;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API;MIRROR;MIRROR_17_0_OR_NEWER;MIRROR_18_0_OR_NEWER;MIRROR_24_0_OR_NEWER;MIRROR_26_0_OR_NEWER;MIRROR_27_0_OR_NEWER;MIRROR_28_0_OR_NEWER;MIRROR_29_0_OR_NEWER;MIRROR_30_0_OR_NEWER;MIRROR_30_5_2_OR_NEWER;MIRROR_32_1_2_OR_NEWER;MIRROR_32_1_4_OR_NEWER;MIRROR_35_0_OR_NEWER;MIRROR_35_1_OR_NEWER;MIRROR_37_0_OR_NEWER;MIRROR_38_0_OR_NEWER;MIRROR_39_0_OR_NEWER;MIRROR_40_0_OR_NEWER;MIRROR_41_0_OR_NEWER;MIRROR_42_0_OR_NEWER;MIRROR_43_0_OR_NEWER;MIRROR_44_0_OR_NEWER;MIRROR_46_0_OR_NEWER;MIRROR_47_0_OR_NEWER;MIRROR_53_0_OR_NEWER;MIRROR_55_0_OR_NEWER;MIRROR_57_0_OR_NEWER;MIRROR_58_0_OR_NEWER;MIRROR_65_0_OR_NEWER;MIRROR_66_0_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -49,7 +49,7 @@
     <UnityProjectGenerator>Package</UnityProjectGenerator>
     <UnityProjectGeneratorVersion>2.0.16</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
-    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2020.3.37f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\NewMaterialChange.cs" />
+    <Compile Include="Assets\UnityNetworkServer.cs" />
     <Compile Include="Assets\Scripts\BAAS\LoginManager.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\LookAtTarget.cs" />
-    <Compile Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Scripts\CTI_CustomWind.cs" />
     <Compile Include="Assets\Imports\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\BAAS\MatchmakingService.cs" />
@@ -81,112 +81,79 @@
     <Compile Include="Assets\Scripts\PassiveAbility.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ChangeSizeColor.cs" />
     <Compile Include="Assets\Imports\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIParticleSystem.cs" />
-    <Compile Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Scripts\CTI_Utils.cs" />
     <Compile Include="Assets\Imports\JMO Assets\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
-    <Compile Include="Assets\Scripts\ActiveAbility.cs" />
+    <Compile Include="Assets\Scripts\Battle\ActiveAbility.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\_ObjectsMakeBase.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\ObjectMove.cs" />
     <Compile Include="Assets\Scripts\SpellInstance.cs" />
+    <Compile Include="Assets\Scripts\BAAS\BattleToServerMessenger.cs" />
     <Compile Include="Assets\Scripts\MenuItem.cs" />
-    <Compile Include="Assets\Scripts\DatabaseAccessor.cs" />
+    <Compile Include="Assets\Scripts\BAAS\Configuration.cs" />
+    <Compile Include="Assets\Scripts\BAAS\DatabaseAccessor.cs" />
     <Compile Include="Assets\Scripts\BattleStateManager.cs" />
     <Compile Include="Assets\Scripts\TeamMenu.cs" />
-    <Compile Include="Assets\Scripts\BAAS\BattleToServerMessenger.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
+    <Compile Include="Assets\StartServer.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\VariousRotateObject.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\ForEffects\ShieldActivate.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\VariousEffectsScene.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\DelayActive.cs" />
     <Compile Include="Assets\Imports\SpecialSkillsEffectsPack\Scripts\VariousMouseOrbit.cs" />
-    <Compile Include="Assets\Scripts\Ability.cs" />
+    <Compile Include="Assets\Scripts\Battle\Ability.cs" />
     <Compile Include="Assets\Scripts\TravelCast.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\LocalProfile.cs" />
     <Compile Include="Assets\Scripts\BAAS\StoreUI.cs" />
+    <Compile Include="Assets\Scripts\BAAS\GUIDUtility.cs" />
+    <Compile Include="Assets\Scripts\BAAS\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Scripts\Enemy\PassiveAI.cs" />
     <Compile Include="Assets\Imports\JMO Assets\Cartoon FX\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\Scripts\BAAS\ProfileToUI.cs" />
     <Compile Include="Assets\Scripts\Gatcha.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\GameState.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Helpers\SimpleJsonInstance.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\GameOperation.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\PlayFabMultiplayerAgentView.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\ErrorStates.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\PlayFabMultiplayerAgentAPI.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\HeartbeatRequest.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\SessionConfig.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\GameServerConnectionInfo.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\HeartbeatResponse.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\GsdkConfiguration.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Helpers\SimpleJson.cs" />
-    <Compile Include="Assets\UnityGsdk\Assets\PlayFabSdk\MultiplayerAgent\Model\ConnectedPlayer.cs" />
-    <Compile Include="Assets\ServerAgent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\UnityGsdk\ProjectSettings\ProjectVersion.txt" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Bark_Array_301.shader" />
-    <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
+    <None Include="Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
-    <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll" />
+    <None Include="Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Imports\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Billboard_301.shader" />
     <None Include="Assets\Imports\SpecialSkillsEffectsPack\Shader_ForEffects\Shader_Decal.shader" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Resources\CTI_Camera-DepthNormalTexture_301.shader" />
     <None Include="Assets\Imports\Simple Toon\Shaders\STOutline.shader" />
-    <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Imports\JMO Assets\Cartoon FX\CartoonFX Free.txt" />
     <None Include="Assets\Imports\Fantasy Skybox FREE\Readme.txt" />
-    <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll" />
+    <None Include="Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-    <None Include="Assets\ScriptTemplates\56-Mirror__Network Discovery-NewNetworkDiscovery.cs.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Resources\CTI_Internal-DeferredShading.shader" />
     <None Include="Assets\Imports\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\Imports\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
-    <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll" />
+    <None Include="Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Imports\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\hidden particle.shader" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Getting started.txt" />
     <None Include="Assets\Imports\SpecialSkillsEffectsPack\Shader_ForEffects\Shader_DistortionEffect.shader" />
-    <None Include="Assets\Mirror\Version.txt" />
-    <None Include="Assets\Mirror\Readme.txt" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\Includes\CTI_BillboardVertex_301.cginc" />
+    <None Include="Assets\Imports\Mirror\Version.txt" />
+    <None Include="Assets\Imports\Mirror\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\ScriptTemplates\57-Mirror__Network Transform-NewNetworkTransform.cs.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\Imports\Simple Toon\Shaders\STTransparent.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\Includes\CTI_TranslucentLighting_301.cginc" />
-    <None Include="Assets\ScriptTemplates\52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Bark_301.shader" />
     <None Include="Assets\Imports\Simple Toon\Shaders\STCore.cginc" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Resources\CTI_Internal-DeferredReflections.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\Includes\CTI_indirect.cginc" />
-    <None Include="Assets\Mirror\Notice.txt" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\CTI_LOD_Leaves_301.shader" />
+    <None Include="Assets\Imports\Mirror\Notice.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\Mirror\Plugins\Mono.Cecil\License.txt" />
-    <None Include="Assets\ScriptTemplates\55-Mirror__Network Room Player-NewNetworkRoomPlayer.cs.txt" />
+    <None Include="Assets\Imports\Mirror\Plugins\Mono.Cecil\License.txt" />
     <None Include="Assets\Imports\Simple Toon\Shaders\STDefault.shader" />
     <None Include="Assets\Imports\JMO Assets\Cartoon FX\Shaders\CFXM_MobileParticleAdd_Alpha8.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\ScriptTemplates\53-Mirror__Custom Interest Management-CustomInterestManagement.cs.txt" />
     <None Include="Assets\Imports\SpecialSkillsEffectsPack\Shader_ForEffects\Shader_IntegratedEffect.shader" />
     <None Include="Assets\Imports\POLYGON city pack\Read_me.txt" />
-    <None Include="Assets\Imports\Conifers [BOTD]\Render Pipeline Support\Built-in RP\CTI Runtime Components\Shaders\Includes\CTI_Builtin4xTreeLibraryTumbling_301.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
-    <None Include="Assets\UnityGsdk\Assets\PlayFabSdk\link.xml" />
-    <None Include="Assets\ScriptTemplates\50-Mirror__Network Manager-NewNetworkManager.cs.txt" />
     <None Include="Assets\Imports\Simple Toon\Shaders\STFunctions.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\ScriptTemplates\54-Mirror__Network Room Manager-NewNetworkRoomManager.cs.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Imports\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIAdditive.shader" />
@@ -219,6 +186,12 @@
     </Reference>
     <Reference Include="UnityEngine.ClothModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterRendererModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
@@ -373,6 +346,9 @@
     <Reference Include="UnityEngine.VideoModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.VideoModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.WindModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
     </Reference>
@@ -406,8 +382,14 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.CecilX.Rocks">
+      <HintPath>Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.CecilX.Mdb">
+      <HintPath>Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil@1.10.1\Mono.Cecil.dll</HintPath>
@@ -415,32 +397,26 @@
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.CecilX.Pdb">
+      <HintPath>Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Cecil.Pdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.CecilX">
+      <HintPath>Assets\Imports\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Cecil.Mdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil">
-      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Rocks">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.CecilX.Rocks">
-      <HintPath>Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.CecilX.Mdb">
-      <HintPath>Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.CecilX.Pdb">
-      <HintPath>Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.CecilX">
-      <HintPath>Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll</HintPath>
+    <Reference Include="Unity.Burst.Cecil">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.37f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -832,9 +808,6 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Notifications.iOS">
-      <HintPath>Library\ScriptAssemblies\Unity.Notifications.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Networking.Transport">
       <HintPath>Library\ScriptAssemblies\Unity.Networking.Transport.dll</HintPath>
     </Reference>
@@ -852,6 +825,9 @@
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Notifications.iOS">
+      <HintPath>Library\ScriptAssemblies\Unity.Notifications.iOS.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing.Codeless">
       <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.Codeless.dll</HintPath>
@@ -972,41 +948,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
-      <Project>{42BC17A8-8EB1-664C-8081-443D93B5CE0F}</Project>
-      <Name>FMODUnityResonanceEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PlayFabEditorExtensions.csproj">
-      <Project>{9A43F5F2-6747-B168-E01F-61DE3F139B98}</Project>
-      <Name>PlayFabEditorExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="FMODUnity.csproj">
-      <Project>{80E5E3AB-3336-418C-6F77-4B38811D0F54}</Project>
-      <Name>FMODUnity</Name>
-    </ProjectReference>
-    <ProjectReference Include="FMODUnityEditor.csproj">
-      <Project>{DD2204F0-87A1-DBEE-BB03-8106FE413136}</Project>
-      <Name>FMODUnityEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="FMODUnityResonance.csproj">
-      <Project>{238CB3A9-D057-CE5F-6797-0D1497F94996}</Project>
-      <Name>FMODUnityResonance</Name>
-    </ProjectReference>
     <ProjectReference Include="PlayFabSDKEditor.csproj">
       <Project>{8CBAEC14-28B5-CA93-F3F5-97D7FC8CA019}</Project>
       <Name>PlayFabSDKEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PlayFab.csproj">
-      <Project>{83A959C0-8E16-6435-F3A4-9498BB6D4CA9}</Project>
-      <Name>PlayFab</Name>
     </ProjectReference>
     <ProjectReference Include="kcp2k.csproj">
       <Project>{1A455E6C-FB78-E384-4FDA-E998A0802B83}</Project>
       <Name>kcp2k</Name>
     </ProjectReference>
+    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
+      <Project>{42BC17A8-8EB1-664C-8081-443D93B5CE0F}</Project>
+      <Name>FMODUnityResonanceEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="Mirror.Editor.csproj">
       <Project>{3D947A60-38A8-4746-02EE-1A5890826016}</Project>
       <Name>Mirror.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Mirror.CompilerSymbols.csproj">
+      <Project>{1355A759-39C4-1D5F-DA54-B16D31A8A639}</Project>
+      <Name>Mirror.CompilerSymbols</Name>
+    </ProjectReference>
+    <ProjectReference Include="Mirror.Authenticators.csproj">
+      <Project>{7C18F4DF-001A-286D-3F86-3BAD8CBD728A}</Project>
+      <Name>Mirror.Authenticators</Name>
     </ProjectReference>
     <ProjectReference Include="where-allocations.csproj">
       <Project>{5EA01F93-226C-AD52-1B06-8EB590271F6A}</Project>
@@ -1020,21 +984,33 @@
       <Project>{64B16263-728F-F282-9BEA-1E6551444714}</Project>
       <Name>Mirror.Components</Name>
     </ProjectReference>
+    <ProjectReference Include="Mirror.csproj">
+      <Project>{FD223969-B1C3-D2CD-ECC8-60010FDCDE89}</Project>
+      <Name>Mirror</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFabEditorExtensions.csproj">
+      <Project>{9A43F5F2-6747-B168-E01F-61DE3F139B98}</Project>
+      <Name>PlayFabEditorExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="Mirror.Examples.csproj">
       <Project>{2BA87B93-2C6B-E325-3EE1-A1ACAD4BEF61}</Project>
       <Name>Mirror.Examples</Name>
     </ProjectReference>
-    <ProjectReference Include="Mirror.CompilerSymbols.csproj">
-      <Project>{1355A759-39C4-1D5F-DA54-B16D31A8A639}</Project>
-      <Name>Mirror.CompilerSymbols</Name>
+    <ProjectReference Include="PlayFab.csproj">
+      <Project>{83A959C0-8E16-6435-F3A4-9498BB6D4CA9}</Project>
+      <Name>PlayFab</Name>
     </ProjectReference>
-    <ProjectReference Include="Mirror.Authenticators.csproj">
-      <Project>{7C18F4DF-001A-286D-3F86-3BAD8CBD728A}</Project>
-      <Name>Mirror.Authenticators</Name>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{80E5E3AB-3336-418C-6F77-4B38811D0F54}</Project>
+      <Name>FMODUnity</Name>
     </ProjectReference>
-    <ProjectReference Include="Mirror.csproj">
-      <Project>{FD223969-B1C3-D2CD-ECC8-60010FDCDE89}</Project>
-      <Name>Mirror</Name>
+    <ProjectReference Include="FMODUnityEditor.csproj">
+      <Project>{DD2204F0-87A1-DBEE-BB03-8106FE413136}</Project>
+      <Name>FMODUnityEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonance.csproj">
+      <Project>{238CB3A9-D057-CE5F-6797-0D1497F94996}</Project>
+      <Name>FMODUnityResonance</Name>
     </ProjectReference>
     <ProjectReference Include="SimpleWebTransport.csproj">
       <Project>{DDE403CA-1664-9B5A-B934-9E066F7CB7E7}</Project>

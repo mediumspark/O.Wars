@@ -24,9 +24,6 @@ public class LoginManager : MonoBehaviour
     public static string SessionTicket;
     public static string EntityID;
 
-    [SerializeField]
-    bool isServer; 
-
     public void RegisterButton()
     {
         if(passwordIn.text.Length < 6)
