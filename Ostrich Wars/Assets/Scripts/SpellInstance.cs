@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Mirror; 
 
-public class SpellInstance : MonoBehaviour, IPointerClickHandler
+public class SpellInstance : NetworkBehaviour, IPointerClickHandler
 {
     public SpellSO SpellBase;
     public int CurrentCost;

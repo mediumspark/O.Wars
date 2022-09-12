@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror; 
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     private ParticleSystem _hoverParticle;
     public static ParticleSystem HoverParticle;
 
+    [SerializeField]
+    BattleStateManager BMS;
+
     public static Camera CachedCamera { get; set; }
 
     private void Awake()
@@ -25,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     public void OnBeginBattle()
     {
-        BattleStateManager.instance.SetBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
+        BattleStateManager.instance.SetOnlineBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
     }
 
 }

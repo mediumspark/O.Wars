@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.InputSystem;
+using Mirror;
 
 
-public class BattleStateManager : MonoBehaviour
+public class BattleStateManager : NetworkBehaviour
 {
     public static BattleStateManager instance; 
 
     ///Player Lists from their selected Inventories
-    private List<UnitSO> _playerUnit, _enemyUnits;
+    private readonly SyncList<UnitSO> _playerUnit = new SyncList<UnitSO>();
+    private readonly SyncList<UnitSO> _enemyUnits = new SyncList<UnitSO>();
     //Units Currently on the field
-    private List<UnitInstance> _activePlayerUnits = new List<UnitInstance>();
-    private List<UnitInstance> _activeEnemyUnits = new List<UnitInstance>();
-    public List<UnitInstance> EnemiesActive => _activeEnemyUnits;
-    public List<UnitInstance> AllUnits  { 
+    private readonly SyncList<UnitInstance> _activePlayerUnits = new SyncList<UnitInstance>();
+    private readonly SyncList<UnitInstance> _activeEnemyUnits = new SyncList<UnitInstance>();
+
+    public SyncList<UnitInstance> EnemiesActive => _activeEnemyUnits;
+    public SyncList<UnitInstance> AllUnits  { 
         get {
-            List<UnitInstance> UIL = new List<UnitInstance>();
+            SyncList<UnitInstance> UIL = new SyncList<UnitInstance>();
 
             UIL.AddRange(_activePlayerUnits);
             UIL.AddRange(_activeEnemyUnits);
@@ -28,22 +31,21 @@ public class BattleStateManager : MonoBehaviour
 
     //Currently Acting Unit
     private UnitInstance _currentActingUnit;
+    [SyncVar(hook = nameof(SetNextUnit))]
+    int unitIndex = 0; 
     public  UnitInstance CurrentUnit => _currentActingUnit;
     private UnitAnimation _currentUnitAnimations => _currentActingUnit.UIA; 
 
     //TurnOrder of the Currently Acting Units
-    private UnitInstance[] _turnOrder;
+    protected UnitInstance[] _turnOrder;
     public List<UnitInstance> TurnOrder => _turnOrder.ToList(); 
 
     [SerializeField]
-    private Transform _playerBattleSpace, _enemyBattleSpace;
+    protected Transform _playerBattleSpace, _enemyBattleSpace;
 
     [SerializeField]
-    private GameObject _playerUI;
+    protected GameObject _playerUI;
 
-    [SerializeField]
-    private EnemyAI _aIPlayer; 
-    public EnemyAI SetAI { set => _aIPlayer = value;  }
     /// <summary>
     /// ActionQueued is marked when the player selects an option  
     /// </summary>
@@ -59,11 +61,14 @@ public class BattleStateManager : MonoBehaviour
     /// <summary>
     /// Decks
     /// </summary>
-    private List<SpellSO> _playerDeck, _enemyDeck;
-    [SerializeField]
-    private List<SpellSO> _playerDeckInstance, _enemyDeckInstance;
+    private readonly SyncList<SpellSO> _playerDeck = new SyncList<SpellSO>();
+    private readonly SyncList<SpellSO> _enemyDeck = new SyncList<SpellSO>();
 
-    private void Awake()
+    [SerializeField]
+    private readonly SyncList<SpellSO> _playerDeckInstance = new SyncList<SpellSO>();
+    private readonly SyncList<SpellSO> _enemyDeckInstance = new SyncList<SpellSO>();
+
+    protected virtual void Awake()
     {
         instance = this; 
 
@@ -85,12 +90,12 @@ public class BattleStateManager : MonoBehaviour
 
     public bool ActiveAnimation = false;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         inputActions.Enable(); 
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         inputActions.Disable(); 
     }
@@ -109,13 +114,28 @@ public class BattleStateManager : MonoBehaviour
     }
 
 
-    public void SetBattleComponents(List<UnitSO> PlayerUnit, List<UnitSO> EnemyUnits, List<SpellSO> PlayerDeck, List<SpellSO> EnemyDeck)
+    public void SetOnlineBattleComponents(List<UnitSO> PlayerUnit, List<UnitSO> EnemyUnits, List<SpellSO> PlayerDeck, List<SpellSO> EnemyDeck)
     {
-        _playerDeck = PlayerDeck; 
-        _playerUnit = PlayerUnit;
-        _enemyDeck = EnemyDeck; 
-        _enemyUnits = EnemyUnits;
-        FindObjectOfType<BattleStateManager>().StartBattle(); 
+        _playerDeck.Clear(); 
+        _playerDeck.AddRange(PlayerDeck);
+        _playerUnit.Clear(); 
+        _playerUnit.AddRange(PlayerUnit);
+        _enemyDeck.Clear(); 
+        _enemyDeck.AddRange(EnemyDeck);
+        _enemyUnits.Clear(); 
+        _enemyUnits.AddRange(EnemyUnits); 
+
+        StartBattle(); 
+    }
+
+    protected virtual void SetBattleUnits()
+    {
+        _playerDeckInstance.AddRange(_playerDeck);
+        _enemyDeckInstance.AddRange(_enemyDeck);
+
+        UnitCollection();
+
+        _turnOrder = TurnOrderCalc();
     }
 
     /// <summary>
@@ -124,79 +144,19 @@ public class BattleStateManager : MonoBehaviour
     /// Determine TurnOrder 
     /// Any Passives that take place on Turn Starts
     /// </summary>
-    public void StartBattle()
+    public virtual void StartBattle()
     {
-        _playerDeckInstance.AddRange(_playerDeck);
-        _enemyDeckInstance.AddRange(_enemyDeck); 
-
-        UnitCollection();
-
-        _turnOrder = TurnOrderCalc();
-
-        _currentActingUnit = _turnOrder[0];
-
+        SetBattleUnits();
         #region Adding Listeners
-        OnTurnEnd.AddListener(() => EndTurn());
-        OnTurnStart.AddListener(() =>
-        {
-            if (!_currentActingUnit.PlayerOwned)
-            {
-                Debug.Log("EnemyTurn");
-                _aIPlayer?.ExecuteDescision(_currentActingUnit, _activeEnemyUnits.Concat(_activePlayerUnits).ToList());
-            }
-            else
-            {
-                ActiveAnimation = false; 
-            }
-        });
 
-        OnTurnStart.AddListener(() =>
-        {
-            if(_enemyDeck.Count > 0)
-            {
-                DeckManager.DrawCard(false, _enemyDeckInstance); 
-            }
-
-            if(_playerDeck.Count > 0)
-            {
-                DeckManager.DrawCard(true, _playerDeckInstance);
-            }
-        });
-
-
-        OnTurnEnd.AddListener(() =>
-        {
-
-            if (Target != null && !Target.isAlive)
-            {
-                OnUnitDeath += ctx => UnitDied(Target);
-                OnUnitDeath += ctx => VictoryCheck();
-                Target.UIA.DieTrigger(); 
-                OnUnitDeath.Invoke(Target); 
-            }
-
-            if (!_currentActingUnit.isAlive)
-            {
-                OnUnitDeath += ctx => UnitDied(_currentActingUnit);
-                OnUnitDeath += ctx => VictoryCheck();
-                OnUnitDeath.Invoke(_currentActingUnit);
-                _currentUnitAnimations.DieTrigger(); 
-            }
-
-        });
-
-        OnTurnEnd.AddListener(() =>
-        {
-
-        });
-        AddActionRecurringlListeners();
-
+        AddStarterListeners(_currentActingUnit); 
+        AddActionRecurringlListeners(_currentActingUnit);
+        _currentActingUnit = TurnOrder[0]; 
         #endregion
-
-        OnTurnStart.Invoke(); 
+        StartBattle(); 
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         _playerUI.SetActive(_currentActingUnit.PlayerOwned && !ActiveAnimation);
     }
@@ -204,7 +164,7 @@ public class BattleStateManager : MonoBehaviour
     /// <summary>
     /// Summons units from player and enemy inventory
     /// </summary>
-    private void UnitCollection()
+    protected virtual void UnitCollection()
     {
         for (int UnitInterator = 0; UnitInterator <= 3; UnitInterator++)
         {
@@ -240,16 +200,42 @@ public class BattleStateManager : MonoBehaviour
     public UnityEvent OnTurnStart;
 
     /// <summary>
+    /// Client Friendly Turn Start
+    /// </summary>
+    [ClientRpc]
+    public void RPConStart()
+    {
+        OnTurnStart?.Invoke(); 
+    }
+    
+    [Command(requiresAuthority =false)]
+    public void BattleStart()
+    {
+        RPConStart(); 
+    }
+
+    /// <summary>
     /// Called When a unit selections an action and then completes that action
     /// </summary>
     public delegate void OnActionTakenDelegate(UnitInstance target);
     public OnActionTakenDelegate OnActionTaken; 
+
+    [ClientRpc]
+    public void RPConActionTaken(UnitInstance target)
+    {
+        OnActionTaken?.Invoke(target); 
+    }
 
     /// <summary>
     /// Called when that action is completed but before the next unit has been chosen
     /// </summary>
     [HideInInspector]
     public UnityEvent OnTurnEnd;
+    [ClientRpc]
+    public void RPConEnd()
+    {
+        OnTurnEnd?.Invoke();
+    }
 
     /// <summary>
     /// Called when a unit has died and is removed from play
@@ -258,23 +244,44 @@ public class BattleStateManager : MonoBehaviour
     [HideInInspector]
     public OnDeathDelegate OnUnitDeath;
 
+    [ClientRpc]
+    public void RPConUnitDies(UnitInstance target)
+    {
+        OnUnitDeath?.Invoke(target);
+    }
+
     /// <summary>
     /// Called when a unit casts a spell 
     /// </summary>
     [HideInInspector]
     public UnityEvent SpellCast = new UnityEvent();
+    [ClientRpc]
+    public void RPConSpellcast()
+    {
+        SpellCast?.Invoke();
+    }
 
     /// <summary>
-    /// Called when unit uses AttackCommand
+    /// Called when unit uses AttackCommand((requiresAuthority = false)
     /// </summary>
     [HideInInspector]
     public UnityEvent OnAttack;
+    [ClientRpc]
+    public void RPConAttack()
+    {
+        OnAttack?.Invoke();
+    }
 
     /// <summary>
     /// Called When Unit uses Pass Commmand
     /// </summary>
     [HideInInspector]
     public UnityEvent OnPass;
+    [ClientRpc]
+    public void RPConPass()
+    {
+        OnPass?.Invoke();
+    }
     #endregion
 
     /// <summary>
@@ -290,6 +297,7 @@ public class BattleStateManager : MonoBehaviour
         return AllCurrentUnits.OrderByDescending(u => u.CurrStats.Speed).ToArray(); 
     }
 
+    [ClientRpc]
     public void VictoryCheck()
     {
         Debug.Log("Victory Check");
@@ -314,52 +322,99 @@ public class BattleStateManager : MonoBehaviour
         
     }
 
+    [ClientRpc]
     /// <summary>
-    /// TEMP: 
     /// Testing simple turned based -> Static turns based on speed tiers, no ui representation
     /// Goes to next unit
     /// </summary>
-    private void NextTurnInCycle()
+    protected virtual void NextTurnInCycle(UnitInstance UnitForIndex)
     {
-        int unitIndex = _turnOrder.ToList().IndexOf(_currentActingUnit);
+        int tempUnitIndex = _turnOrder.ToList().IndexOf(UnitForIndex);
 
-        unitIndex++; 
+        tempUnitIndex++; 
 
-        if(unitIndex >= _turnOrder.Length)
+        if(tempUnitIndex >= _turnOrder.Length)
         {
-            unitIndex = 0;
+            tempUnitIndex = 0;
         }
 
-        _currentActingUnit = _turnOrder[unitIndex];
+        unitIndex = tempUnitIndex; 
+    }
 
+    private void SetNextUnit(int oldUnit, int newUnit)
+    {
+        Debug.Log("Hook");
+        _currentActingUnit = _turnOrder[newUnit];
         OnTurnStart.Invoke();
+
     }
 
     //ForTestingPurposes
-    public void NextTurnButton() => NextTurnInCycle(); 
+    public void NextTurnButton() => NextTurnInCycle(_currentActingUnit); 
 
-    public void EndTurn()
+    [ClientRpc]
+    public virtual void EndTurn()
     {
         ActionQueued = false;
         //Will need to remove any additional listeners
         ClearActionEvents();
-        AddActionRecurringlListeners();
-        NextTurnInCycle();
+        AddActionRecurringlListeners(_currentActingUnit);
+        NextTurnInCycle(_currentActingUnit);
     }
 
-    private void AddActionRecurringlListeners()
+    public virtual void AddStarterListeners(UnitInstance CurrentUnit)
+    {
+        OnTurnEnd.AddListener(() => EndTurn());
+
+
+        OnTurnStart.AddListener(() =>
+        {
+            if (_enemyDeck.Count > 0)
+            {
+                DeckManager.DrawCard(false, _enemyDeckInstance);
+            }
+
+            if (_playerDeck.Count > 0)
+            {
+                DeckManager.DrawCard(true, _playerDeckInstance);
+            }
+        });
+
+
+        OnTurnEnd.AddListener(() =>
+        {
+
+            if (Target != null && !Target.isAlive)
+            {
+                OnUnitDeath += ctx => UnitDied(Target);
+                OnUnitDeath += ctx => VictoryCheck();
+                Target.UIA.DieTrigger();
+                OnUnitDeath.Invoke(Target);
+            }
+            if (CurrentUnit != null && !CurrentUnit.isAlive)
+            {
+                OnUnitDeath += ctx => UnitDied(CurrentUnit);
+                OnUnitDeath += ctx => VictoryCheck();
+                OnUnitDeath.Invoke(CurrentUnit);
+                _currentUnitAnimations.DieTrigger();
+            }
+
+        });
+    }
+
+    public virtual void AddActionRecurringlListeners(UnitInstance CurrentUnit)
     {
         //ReAdding Essential Listeners
         OnAttack.AddListener(() =>
         {
-            _currentUnitAnimations.AttackTrigger();
+            instance._currentUnitAnimations.AttackTrigger();
 
         });
 
         OnPass.AddListener(() =>
         {
             //This shouldn't work
-            _currentActingUnit.CurrStats.ManaPips++;
+            CurrentUnit.CurrStats.ManaPips++;
 
             OnTurnEnd.Invoke();
         });
@@ -384,7 +439,7 @@ public class BattleStateManager : MonoBehaviour
         OnActionTaken = null; 
     }
 
-    private void ClearActionEvents()
+    protected void ClearActionEvents()
     {
         OnAttack.RemoveAllListeners();
         SpellCast.RemoveAllListeners();
@@ -400,23 +455,31 @@ public class BattleStateManager : MonoBehaviour
     /// <summary>
     /// For UI Attack Button
     /// </summary>
-    public void AttackButtonPress()
+    [Command(requiresAuthority =false)]
+    public void OnlineAttackButtonPress()
     {
+        OnAttackMethod();
+    }
+
+    [ClientRpc]
+    private void OnAttackMethod()
+    {
+        Debug.Log("Attacking");
+
         ClearActionQueue();
-        
+
         OnAttack.AddListener(() => Target.TakeDaamge(CurrentUnit.CurrStats.Attack - Mathf.FloorToInt(Target.CurrStats.Defence / 2) + 1));
 
-        OnActionTaken += ctx => OnAttack.Invoke();
-        OnActionTaken += ctx => OnTurnEnd.Invoke();
+        OnActionTaken += ctx => RPConAttack();
+        OnActionTaken += ctx => RPConEnd();
 
         if (Target != null)
         {
             ActiveAnimation = true;
-            BattleToServerMessenger.instance.SubmitActionRequestServerRpc(); 
+            RPConActionTaken(Target);
         }
         else
             Debug.Log("Select Target");
-
     }
 
     /// <summary>
@@ -438,7 +501,7 @@ public class BattleStateManager : MonoBehaviour
         _turnOrder.ToList().Remove(Unit);
 
 
-        if (Unit == _currentActingUnit)
+        if (Unit == instance._currentActingUnit)
             OnTurnEnd.Invoke();
 
         Destroy(Unit);
@@ -448,8 +511,10 @@ public class BattleStateManager : MonoBehaviour
     /// <summary>
     /// For UI Pass Button
     /// </summary>
-    public void OnPassButtonPress()
+    [Command]
+    public void OnlinePassButtonPress()
     {
-        OnPass.Invoke(); 
+        RPConPass();
     }
+
 }

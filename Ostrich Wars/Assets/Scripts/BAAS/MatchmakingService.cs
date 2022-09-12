@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using PlayFab.Networking; 
 using PlayFab;
 using PlayFab.Json; 
 using PlayFab.MultiplayerModels;
 using System;
-using System.Linq; 
+using System.Linq;
+using Mirror; 
 
 public class MatchmakingService : MonoBehaviour
 {
@@ -14,14 +15,18 @@ public class MatchmakingService : MonoBehaviour
     private string ticketID; 
     private string QuickQue = "QuickPlay";
     private Coroutine TicktPolling;
-
     public GameObject Battle;
+    public BattleStateManager BSM; 
 
-    private void Awake()
+
+    private void Start()
     {
         LoginManager.OnLogin += () => player = gameObject.GetComponent<LocalProfile>();
+        UnityNetworkClient.Instance.OnConnected.AddListener(OnConnected); 
+        UnityNetworkClient.Instance.OnDisconnected.AddListener(OnDisconnected); 
+        NetworkClient.RegisterHandler<ShutdownMessage>(OnServerShutdown);
+        NetworkClient.RegisterHandler<MaintenanceMessage>(OnMaintenanceMessage);
     }
-
 
     public void StartQuickMatch()
     {
@@ -39,12 +44,23 @@ public class MatchmakingService : MonoBehaviour
 
                 Attributes = new MatchmakingPlayerAttributes
                 {
-                    DataObject = TeamTouple
+                    DataObject = new
+                    {
+                        Item1 = TeamTouple.Item1,
+                        Item2 = TeamTouple.Item2,
+                        Latencies = new object[]
+                        {
+                            new {
+                                latency = 150,
+                                region = "EastUs"
+                            }
+                        }
+                    }
                 }
                 
             },
 
-            GiveUpAfterSeconds = 60, 
+            GiveUpAfterSeconds = 120, 
             QueueName = QuickQue
             
         };
@@ -73,12 +89,11 @@ public class MatchmakingService : MonoBehaviour
             var request = new GetMatchmakingTicketRequest
             {
                 TicketId = ticketID,
-                QueueName = QuickQue,
-                
+                QueueName = QuickQue,                
             };
 
             PlayFabMultiplayerAPI.GetMatchmakingTicket(request, OnGetMatchTicket, OnPlayfabError);
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(1.25f);
         }
     }
 
@@ -88,11 +103,11 @@ public class MatchmakingService : MonoBehaviour
         {
             StopCoroutine(TicktPolling);
             StartMatch(result.MatchId);
-            return; 
+            return;
         }
         else
         {
-
+            Debug.Log(result.Status); 
             return;
         }
     }
@@ -113,6 +128,12 @@ public class MatchmakingService : MonoBehaviour
 
     private void OnGetMatch(GetMatchResult result)
     {
+
+        UnityNetworkClient.Instance.networkAddress = result.ServerDetails.IPV4Address;
+        UnityNetworkClient.Instance.GetComponent<TelepathyTransport>().port = (ushort)result.ServerDetails.Ports[0].Num;
+        UnityNetworkClient.Instance.StartClient();
+        BSM.gameObject.SetActive(true); 
+
         int indexofPlayer = result.Members.IndexOf(result.Members.Where(ctx => ctx.Entity.Id == LoginManager.EntityID).FirstOrDefault());
 
         int indexOfOpp = indexofPlayer == 0 ? 1 : 0; 
@@ -126,7 +147,6 @@ public class MatchmakingService : MonoBehaviour
             MainMenu.instance.gameObject.SetActive(false);
             Battle.SetActive(true);
             GameManager.instance.OnBeginBattle();
-            //FindObjectOfType<BattleToServerMessenger>().Opp
         }
         catch
         {
@@ -135,4 +155,18 @@ public class MatchmakingService : MonoBehaviour
         Debug.Log($"Match Found vs {result.Members[1].Entity.Id}");
     }
 
+    private void OnConnected()
+    {
+        Debug.Log("connected");
+    }
+    private void OnMaintenanceMessage(MaintenanceMessage msg)
+    {
+    }
+    private void OnServerShutdown(ShutdownMessage msg)
+    {
+        NetworkClient.Disconnect();
+    }
+    private void OnDisconnected(int? code)
+    {
+    }
 }

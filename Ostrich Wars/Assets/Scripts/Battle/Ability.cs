@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Mirror; 
 
-public abstract class Ability : MonoBehaviour
+public abstract class Ability : NetworkBehaviour
 {
     protected ParticleSystem[] _effect;
 

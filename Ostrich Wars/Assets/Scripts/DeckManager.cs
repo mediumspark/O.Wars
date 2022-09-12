@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror; 
 
 public static class DeckManager
 {
     private static List<SpellInstance> _playerHand = new List<SpellInstance>(); 
     private static List<SpellInstance> _enemyHand = new List<SpellInstance>(); 
 
-    public static void DrawCard(bool isPlayer, List<SpellSO> DeckInstance)
+    public static void DrawCard(bool isPlayer, SyncList<SpellSO> DeckInstance)
     {
         var nextCard = new System.Random().Next(DeckInstance.Count - 1);
         var Card = DeckInstance[nextCard];
@@ -27,6 +28,13 @@ public static class DeckManager
         }
 
         DeckInstance.RemoveAt(nextCard); 
+    }
+
+    public static void DrawCard(bool isPlayer, List<SpellSO> DeckInstance)
+    {
+        SyncList<SpellSO> tmp = new SyncList<SpellSO>();
+        tmp.AddRange(DeckInstance);
+        DrawCard(isPlayer, tmp); 
     }
 
     /// <summary>

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using Mirror;
 
 public interface IGameplayInteractable
 {
     public void OnPress();
 }
 
-public class UnitInstance : MonoBehaviour, IGameplayInteractable
+public class UnitInstance : NetworkBehaviour, IGameplayInteractable
 {
     private UnitSO _unitBaseSO; 
 

@@ -1,20 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
-using System;
 
 public class LoginManager : MonoBehaviour
 {
-    public bool SaveCredintials { get; set; } 
+    [SerializeField]
+    LoginSettings LoginSettings;
+
+    public bool SaveCredintials
+    {
+        get => LoginSettings.AUTOLOGIN;
+        set => LoginSettings.AUTOLOGIN = value;
+    }
+    
     public TextMeshProUGUI MessageField; 
     public TMP_InputField emailIn;
     public TMP_InputField passwordIn;
 
     private LocalProfile Player;
-    private string SavedUSRN = "", SavedPS = "";
+    private string SavedUSRN
+    {
+        get => LoginSettings.EMAIL;
+        set => LoginSettings.EMAIL = value; 
+    }
+   
+    private string SavedPS
+    {
+        get => LoginSettings.PSWD;
+        set => LoginSettings.PSWD = value; 
+    }
+
     [SerializeField]
     private Transform OutOfBattleScene, LoginScene;
 
@@ -44,7 +60,7 @@ public class LoginManager : MonoBehaviour
 
     public void LoginButton()
     {
-        Login(); 
+        Login();
     }
 
     public void PasswordResetButton()
@@ -86,22 +102,22 @@ public class LoginManager : MonoBehaviour
 
     void Login()
     {
-        var request = new LoginWithEmailAddressRequest
+        var Loginrequest = new LoginWithEmailAddressRequest
         {            
-            Email = SaveCredintials ? SavedUSRN: emailIn.text,
-            Password = SaveCredintials ? SavedPS : passwordIn.text
-        };
-
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnError);
+            Email = SaveCredintials && SavedUSRN != ""? SavedUSRN: emailIn.text,
+            Password = SaveCredintials && SavedPS != ""? SavedPS : passwordIn.text,
+        };       
+        PlayFabClientAPI.LoginWithEmailAddress(Loginrequest, OnLoginSuccess, OnError);
 
     }
+
 
     void OnLoginSuccess(LoginResult result)
     {
         if (SaveCredintials)
         {
-            SavedUSRN = emailIn.text;
-            SavedPS = passwordIn.text;
+            SavedUSRN = emailIn.text != ""? emailIn.text : SavedUSRN;
+            SavedPS = passwordIn.text != ""? passwordIn.text : SavedPS;
         }
 
         SessionTicket = result.SessionTicket;
@@ -115,8 +131,8 @@ public class LoginManager : MonoBehaviour
         OnLogin.Invoke();
 
         Debug.Log("Successfully login");
-    }
 
+    }
     void OnError(PlayFabError ErrorResult)
     {
         MessageField.text = ErrorResult.ErrorMessage; 
