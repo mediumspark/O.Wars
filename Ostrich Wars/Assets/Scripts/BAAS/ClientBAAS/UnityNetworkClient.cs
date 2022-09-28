@@ -10,7 +10,7 @@
         Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
         API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
     */
-
+/*
     public class UnityNetworkClient : NetworkManager
     {
 
@@ -91,7 +91,7 @@
         public override void OnStopClient() { }
 
     }
-
+*/
     [Serializable]
     public class UnityNetworkConnection
     {

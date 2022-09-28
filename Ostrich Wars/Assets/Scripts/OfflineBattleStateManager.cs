@@ -11,8 +11,8 @@ public class OfflineBattleStateManager : BattleStateManager
     private List<UnitInstance> _activePlayerUnits = new List<UnitInstance>();
     private List<UnitInstance> _activeEnemyUnits = new List<UnitInstance>();
 
-    public new List<UnitInstance> EnemiesActive => _activeEnemyUnits;
-    public new List<UnitInstance> AllUnits
+    public List<UnitInstance> EnemiesActive => _activeEnemyUnits;
+    public List<UnitInstance> AllUnits
     {
         get
         {
@@ -23,10 +23,6 @@ public class OfflineBattleStateManager : BattleStateManager
             return UIL;
         }
     }
-
-    private UnitInstance _currentUnit;
-    public new UnitInstance CurrentUnit => _currentUnit;
-    private UnitAnimation _currentUnitAnimations => _currentUnit.UIA;
 
     [SerializeField]
     private List<SpellSO> _playerDeck = new List<SpellSO>();
@@ -60,7 +56,7 @@ public class OfflineBattleStateManager : BattleStateManager
 
     protected override void Update()
     {
-        _playerUI.SetActive(_currentUnit.PlayerOwned && !ActiveAnimation);
+        _playerUI.SetActive(_currentActingUnit.PlayerOwned && !ActiveAnimation);
     }
 
     protected override void UnitCollection()
@@ -125,7 +121,7 @@ public class OfflineBattleStateManager : BattleStateManager
         OnPass.Invoke();
     }
 
-    private UnitInstance[] TurnOrderCalc()
+    protected override UnitInstance[] TurnOrderCalc()
     {
         List<UnitInstance> AllCurrentUnits = new List<UnitInstance>();
         AllCurrentUnits.AddRange(_activeEnemyUnits);
@@ -141,16 +137,15 @@ public class OfflineBattleStateManager : BattleStateManager
         UnitCollection();
 
         _turnOrder = TurnOrderCalc();
-        _currentUnit = _turnOrder[0];
-
+        _currentActingUnit = _turnOrder[0];
     }
 
     public override void StartBattle()
     {
         SetBattleUnits();
 
-        AddStarterListeners(_currentUnit);
-        AddActionRecurringlListeners(_currentUnit);
+        AddStarterListeners(_currentActingUnit);
+        AddActionRecurringlListeners(_currentActingUnit);
         OnTurnStart.Invoke(); 
     }
 
@@ -159,15 +154,46 @@ public class OfflineBattleStateManager : BattleStateManager
         base.AddStarterListeners(CurrentUnit);
         OnTurnStart.AddListener(() =>
         {
-            if (!_currentUnit.PlayerOwned)
+            if (_enemyDeck.Count > 0)
+            {
+                DeckManager.DrawCard(false, _enemyDeckInstance);
+            }
+
+            if (_playerDeck.Count > 0)
+            {
+                DeckManager.DrawCard(true, _playerDeckInstance);
+            }
+        });
+        OnTurnStart.AddListener(() =>
+        {
+            if (!instance.CurrentUnit.PlayerOwned)
             {
                 Debug.Log("EnemyTurn");
-                _aIPlayer?.ExecuteDescision(_currentUnit, _activeEnemyUnits.Concat(_activePlayerUnits).ToList());
+                _aIPlayer?.ExecuteDescision(instance.CurrentUnit, _activeEnemyUnits.Concat(_activePlayerUnits).ToList());
             }
             else
             {
                 ActiveAnimation = false;
             }
+        });
+        OnTurnEnd.AddListener(() =>
+        {
+
+            if (Target != null && !Target.isAlive)
+            {
+                OnUnitDeath += ctx => UnitDied(Target);
+                OnUnitDeath += ctx => VictoryCheck();
+                Target.UIA.DieTrigger();
+                OnUnitDeath.Invoke(Target);
+            }
+            if (CurrentUnit != null && !CurrentUnit.isAlive)
+            {
+                OnUnitDeath += ctx => UnitDied(CurrentUnit);
+                OnUnitDeath += ctx => VictoryCheck();
+                OnUnitDeath.Invoke(CurrentUnit);
+                _currentUnitAnimations.DieTrigger();
+            }
+
         });
     }
 
@@ -182,10 +208,58 @@ public class OfflineBattleStateManager : BattleStateManager
             unitIndex = 0;
         }
 
-        _currentUnit = _turnOrder[unitIndex];
+        _currentActingUnit = _turnOrder[unitIndex];
 
         OnTurnStart.Invoke();
     }
 
+    /// <summary>
+    /// On unit death the unit is removed from the field, from the turn order
+    /// and it's gameobject is destroyed
+    /// </summary>
+    /// <param name="Unit"></param>
+    public void UnitDied(UnitInstance Unit)
+    {
+        if (Unit.PlayerOwned)
+        {
+            _activePlayerUnits.Remove(Unit);
+        }
+        else
+        {
+            _activeEnemyUnits.Remove(Unit);
+        }
 
+        _turnOrder.ToList().Remove(Unit);
+
+
+        if (Unit == instance.CurrentUnit)
+            OnTurnEnd.Invoke();
+
+        Destroy(Unit);
+
+    }
+
+    public void VictoryCheck()
+    {
+        Debug.Log("Victory Check");
+        bool AlliesDead = _activePlayerUnits.ToArray().Length == 0;
+        bool EnemiesDead = _activeEnemyUnits.ToArray().Length == 0;
+
+        if (!AlliesDead && EnemiesDead)
+        {
+            //Player WIn
+            Debug.Log("You Win!");
+        }
+        else if (AlliesDead && !EnemiesDead)
+        {
+            //Enemies Win
+            Debug.Log("You Lose!");
+        }
+        else if (AlliesDead && EnemiesDead)
+        {
+            //Draw
+            Debug.Log("Draw?");
+        }
+
+    }
 }

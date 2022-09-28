@@ -8,6 +8,6 @@ public class PassiveAI : EnemyAI
     protected override void DecisionCalc(UnitInstance Actor, List<UnitInstance> PotentialTargets)
     {
         Debug.Log("Enemy Decides to pass!");
-        BattleStateManager.OnPass.Invoke();
+        BattleStateManager.instance.OnPass.Invoke();
     }
 }

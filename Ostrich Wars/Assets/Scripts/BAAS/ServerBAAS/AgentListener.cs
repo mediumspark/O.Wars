@@ -48,13 +48,15 @@ public class AgentListener : MonoBehaviour
             throw new Exception(msg);
         }
 
+        NetworkManager.singleton.StartServer(); 
+
         StartCoroutine(ReadyForPlayers());
         StartCoroutine(ShutdownTimer());
     }
 
     IEnumerator ShutdownTimer()
     {
-        yield return new WaitForSeconds(1000f);
+        yield return new WaitForSeconds(300f);
         StartShutdownProcess(); 
     }
 
@@ -66,7 +68,6 @@ public class AgentListener : MonoBehaviour
 
     private void OnServerActive()
     {
-        NetworkManager.singleton.StartServer(); 
         UnityNetworkServer.Instance.StartListen();
         Debug.Log("Server Started From Agent Activation");
     }
@@ -76,7 +77,7 @@ public class AgentListener : MonoBehaviour
         ConnectedPlayer player = _connectedPlayers.Find(x => x.PlayerId.Equals(playfabId, StringComparison.OrdinalIgnoreCase));
         _connectedPlayers.Remove(player);
         PlayFabMultiplayerAgentAPI.UpdateConnectedPlayers(_connectedPlayers);
-        CheckForPlayersToShutdown(); 
+        StartCoroutine(CheckPlayerCountToShutdown()); 
     }
 
     private void OnPlayerAdded(string playfabId)
@@ -85,11 +86,16 @@ public class AgentListener : MonoBehaviour
         PlayFabMultiplayerAgentAPI.UpdateConnectedPlayers(_connectedPlayers);
     }
 
-    private void CheckForPlayersToShutdown()
+    private IEnumerator CheckPlayerCountToShutdown()
     {
-        if(_connectedPlayers.Count <= 0)
+        if (_connectedPlayers.Count <= 1)
         {
-            StartShutdownProcess(); 
+            StartShutdownProcess();
+        }
+        yield return new WaitForSecondsRealtime(120);//Wait 2 minutes before shutting down
+        if (_connectedPlayers.Count <= 1)
+        {
+            StartShutdownProcess();
         }
     }
 

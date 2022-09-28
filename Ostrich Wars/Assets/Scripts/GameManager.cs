@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static ParticleSystem HoverParticle;
 
     [SerializeField]
-    BattleStateManager BMS;
+    OnlineBattleStateManager BMS;
 
     public static Camera CachedCamera { get; set; }
 
@@ -29,8 +29,7 @@ public class GameManager : MonoBehaviour
 
     public void OnBeginBattle()
     {
-        BattleStateManager.instance.SetOnlineBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
+        BMS.SetOnlineBattleComponents(Player.CurrentTeam, Other.CurrentTeam, Player.CurrenDeck, Other.CurrenDeck);
     }
 
 }
-

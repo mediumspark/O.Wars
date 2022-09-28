@@ -16,16 +16,12 @@ public class MatchmakingService : MonoBehaviour
     private string QuickQue = "QuickPlay";
     private Coroutine TicktPolling;
     public GameObject Battle;
-    public BattleStateManager BSM; 
+    //public OnlineBattleStateManager BSM; 
 
 
     private void Start()
     {
         LoginManager.OnLogin += () => player = gameObject.GetComponent<LocalProfile>();
-        UnityNetworkClient.Instance.OnConnected.AddListener(OnConnected); 
-        UnityNetworkClient.Instance.OnDisconnected.AddListener(OnDisconnected); 
-        NetworkClient.RegisterHandler<ShutdownMessage>(OnServerShutdown);
-        NetworkClient.RegisterHandler<MaintenanceMessage>(OnMaintenanceMessage);
     }
 
     public void StartQuickMatch()
@@ -128,25 +124,23 @@ public class MatchmakingService : MonoBehaviour
 
     private void OnGetMatch(GetMatchResult result)
     {
-
-        UnityNetworkClient.Instance.networkAddress = result.ServerDetails.IPV4Address;
-        UnityNetworkClient.Instance.GetComponent<TelepathyTransport>().port = (ushort)result.ServerDetails.Ports[0].Num;
-        UnityNetworkClient.Instance.StartClient();
-        BSM.gameObject.SetActive(true); 
+        NetworkManager.singleton.networkAddress = result.ServerDetails.IPV4Address;
+        NetworkManager.singleton.GetComponent<TelepathyTransport>().port = (ushort)result.ServerDetails.Ports[0].Num;
+        NetworkManager.singleton.StartClient();
 
         int indexofPlayer = result.Members.IndexOf(result.Members.Where(ctx => ctx.Entity.Id == LoginManager.EntityID).FirstOrDefault());
 
         int indexOfOpp = indexofPlayer == 0 ? 1 : 0; 
 
         JsonObject OppList = result.Members[indexOfOpp].Attributes.DataObject as JsonObject;
-        Debug.Log(OppList["Item1"].ToString()); 
+       // Debug.Log(OppList["Item1"].ToString()); The Player's party printed
         try
         {
             GameManager.instance.Other.CurrentTeam = TeamEncoding.InventoryDecoder<UnitSO>(OppList["Item1"].ToString());
             GameManager.instance.Other.CurrenDeck = TeamEncoding.InventoryDecoder<SpellSO>(OppList["Item2"].ToString());
             MainMenu.instance.gameObject.SetActive(false);
-            Battle.SetActive(true);
-            GameManager.instance.OnBeginBattle();
+            Battle.SetActive(true);   
+
         }
         catch
         {
@@ -155,18 +149,22 @@ public class MatchmakingService : MonoBehaviour
         Debug.Log($"Match Found vs {result.Members[1].Entity.Id}");
     }
 
-    private void OnConnected()
+    public void LeaveQueue()
     {
-        Debug.Log("connected");
-    }
-    private void OnMaintenanceMessage(MaintenanceMessage msg)
-    {
-    }
-    private void OnServerShutdown(ShutdownMessage msg)
-    {
-        NetworkClient.Disconnect();
-    }
-    private void OnDisconnected(int? code)
-    {
+        var request = new CancelAllMatchmakingTicketsForPlayerRequest {
+            QueueName = QuickQue,
+            Entity =
+            {
+                Id = LoginManager.EntityID,
+                Type = "title_player_account"
+            }
+        };
+
+        void CancelResult(CancelAllMatchmakingTicketsForPlayerResult result)
+        {
+            Debug.Log("Left Queue");
+        }
+
+        PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(request, CancelResult, OnPlayfabError);
     }
 }

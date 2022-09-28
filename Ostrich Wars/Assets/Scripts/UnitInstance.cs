@@ -20,7 +20,7 @@ public class UnitInstance : NetworkBehaviour, IGameplayInteractable
         }
     }
 
-    public UnitAnimation UIA => GetComponentInChildren<UnitAnimation>(); 
+    public UnitAnimation UIA => GetComponentInChildren<UnitAnimation>();
 
     public UnitStats CurrStats;
 

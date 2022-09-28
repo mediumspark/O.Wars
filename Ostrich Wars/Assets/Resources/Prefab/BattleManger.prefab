@@ -813,7 +813,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3596677650409236145}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BattleStateManager, Assembly-CSharp
         m_MethodName: OnlinePassButtonPress
         m_Mode: 1
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3596677650409236145}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BattleStateManager, Assembly-CSharp
         m_MethodName: OnlineAttackButtonPress
         m_Mode: 1
@@ -1872,7 +1872,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3596677650409236144}
   - component: {fileID: 3596677650409236146}
-  - component: {fileID: 3596677650409236145}
   m_Layer: 0
   m_Name: BattleManger
   m_TagString: Untagged
@@ -1917,40 +1916,6 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 4f32417ddab93584ea166cb7395d67f2
   hasSpawned: 0
---- !u!114 &3596677650409236145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3596677650409236159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96af57a6c221248428368c13e5f9f90b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 1
-  syncInterval: 0.1
-  _playerBattleSpace: {fileID: 3596677650931636905}
-  _enemyBattleSpace: {fileID: 3596677649553738955}
-  _playerUI: {fileID: 3596677650741394980}
-  ActionQueued: 0
-  ActiveAnimation: 0
-  OnTurnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTurnEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  SpellCast:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAttack:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPass:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3596677650422363848
 GameObject:
   m_ObjectHideFlags: 0

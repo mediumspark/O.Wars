@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LoginSettings
   m_EditorClassIdentifier: 
   USRN: 
-  PSWD: 
-  EMAIL: 
-  AUTOLOGIN: 0
+  PSWD: 123456
+  EMAIL: mcchettercheese@gmail.com
+  AUTOLOGIN: 1

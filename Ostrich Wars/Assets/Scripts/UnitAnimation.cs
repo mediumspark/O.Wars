@@ -3,11 +3,13 @@
 public class UnitAnimation : MonoBehaviour
 {
     Animator _ani;
-    string _defaultName; 
+    string _defaultName;
+    UnitInstance unit; 
     private void Awake()
     {
         _ani = GetComponentInChildren<Animator>();
-        _defaultName = _ani.GetCurrentAnimatorClipInfo(0)[0].clip.name; 
+        _defaultName = _ani.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        unit = GetComponentInParent<UnitInstance>(); 
     }
 
     public void AttackTrigger() => _ani.SetTrigger("Attack");
@@ -20,4 +22,18 @@ public class UnitAnimation : MonoBehaviour
         FindObjectOfType<BattleStateManager>().PlayHitAnimation(go.GetComponent<ParticleSystem>()); 
     }
 
+    private void Update()
+    {
+        unit.CurrentlyAnimated = !isIdle(); 
+    }
+
+    private bool isIdle()
+    {
+        string CurrentAnimation = _ani.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+
+        return CurrentAnimation == _defaultName||
+            CurrentAnimation.Contains("Death") ||
+            CurrentAnimation.Contains("Dying") ||
+            CurrentAnimation.Contains("Dead");
+    }
 }

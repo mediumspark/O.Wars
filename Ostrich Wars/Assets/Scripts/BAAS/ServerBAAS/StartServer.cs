@@ -6,11 +6,13 @@ using PlayFab;
 using PlayFab.MultiplayerAgent.Model;
 using Mirror;
 using System;
-using PlayFab.Networking; 
+using PlayFab.Networking;
+using System.Linq; 
 
 public class StartServer : MonoBehaviour
 {
 	private List<ConnectedPlayer> _connectedPlayers;
+	public NetworkBehaviour OnlineBattle; 
 
 	public UnityNetworkServer UNetServer;
 
@@ -35,6 +37,25 @@ public class StartServer : MonoBehaviour
 
 		UNetServer.OnPlayerAdded.AddListener(OnPlayerAdded);
 		UNetServer.OnPlayerRemoved.AddListener(OnPlayerRemoved);
+		// get the port that the server will listen to
+		// We *have to* do it on process mode, since there might be more than one game server instances on the same VM and we want to avoid port collision
+		// On container mode, we can omit the below code and set the port directly, since each game server instance will run on its own network namespace. However, below code will work as well
+		// we have to do that on process
+		var connInfo = PlayFabMultiplayerAgentAPI.GetGameServerConnectionInfo();
+		// make sure the ListeningPortKey is the same as the one configured in your Build settings (either on LocalMultiplayerAgent or on MPS)
+		const string ListeningPortKey = "game_port";
+		var portInfo = connInfo.GamePortsConfiguration.Where(x => x.Name == ListeningPortKey);
+		if (portInfo.Count() > 0)
+		{
+			Debug.Log(string.Format("port with name {0} was found in GSDK Config Settings.", ListeningPortKey));
+			UnityNetworkServer.Instance.Port = portInfo.Single().ServerListeningPort;
+		}
+		else
+		{
+			string msg = string.Format("Cannot find port with name {0} in GSDK Config Settings. If you are running locally, make sure the LocalMultiplayerAgent is running and that the MultiplayerSettings.json file includes correct name as a GamePort Name. If you are running this sample in the cloud, make sure you have assigned the correct name to the port", ListeningPortKey);
+			Debug.LogError(msg);
+			throw new Exception(msg);
+		}
 
 		StartCoroutine(ReadyForPlayers());
 		StartCoroutine(ShutdownServerInXTime());
@@ -51,7 +72,7 @@ public class StartServer : MonoBehaviour
 			}, CustomGameServerMessageTypes.ShutdownMessage);
 		}
 	}
-	
+
 	private void CheckPlayerCountToShutdown()
 	{
 		if (_connectedPlayers.Count <= 0)
@@ -82,7 +103,7 @@ public class StartServer : MonoBehaviour
 
 	IEnumerator ShutdownServerInXTime()
 	{
-		yield return new WaitForSeconds(3000f);
+		yield return new WaitForSeconds(300f);
 		StartShutdownProcess();
 	}
 
